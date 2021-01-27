@@ -1,5 +1,5 @@
 from django.views.generic import View
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -89,4 +89,22 @@ class UpdatePhotoView(SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+class ReSendConfEmailView(FormView):
+    form_class = ReSendConfEmailForm
+    template_name = 'accounts/new_activate.html'
+    success_url = reverse_lazy('login')
+    success_message = "Check your email"
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            user = User.objects.get(email=email)
+            user.send_email()
+            messages.success(request, ('Check your email.'))
+            return redirect('login')
+        return render(request, self.template_name, {'form': form})
+
+
 

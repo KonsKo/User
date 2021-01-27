@@ -29,4 +29,5 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('cabinet/', login_required(CabinetView.as_view()), name='cabinet'),
     path('cabinet/update/photo', login_required(UpdatePhotoView.as_view()), name='update_photo'),
+    path('confirmation/resend/', ReSendConfEmailView.as_view(), name='resend_email'),
 ]

@@ -21,6 +21,7 @@ class User(AbstractUser):
     phone = PhoneNumberField(unique=True)
     photo = models.ImageField(upload_to='images/', blank=True)
 
+
     def __str__(self):
         return self.username
 
