@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_decode
 from accounts.tokens import account_activation_token
 from accounts.forms import *
 
+
 User = get_user_model()
 
 class CustomLoginView(SuccessMessageMixin, LoginView):
@@ -20,7 +21,6 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
 
 
 class SignupView(SuccessMessageMixin, CreateView):
-
     template_name = 'accounts/signup.html'
     form_class = SignupForm
     success_message = "Your profile was created successfully"
@@ -63,7 +63,6 @@ class ActivateAccount(View):
 
 
 class CabinetView(UpdateView):
-
     template_name = 'accounts/cabinet.html'
     model = User
     fields = ['phone',]
@@ -73,14 +72,12 @@ class CabinetView(UpdateView):
 
 
 class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
-
     template_name = 'accounts/password_change_form.html'
     success_url = reverse_lazy('cabinet')
     success_message = "Password was changed successfully"
 
 
 class UpdatePhotoView(SuccessMessageMixin, UpdateView):
-
     template_name = 'accounts/update_photo.html'
     model = User
     fields = ['photo',]
@@ -89,6 +86,7 @@ class UpdatePhotoView(SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
 
 class ReSendConfEmailView(FormView):
     form_class = ReSendConfEmailForm

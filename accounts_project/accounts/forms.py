@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.forms import ValidationError
 
+
 User = get_user_model()
 
 class SignupForm(UserCreationForm):
@@ -19,10 +20,9 @@ class CustomAuthenticationForm(AuthenticationForm):
         model = User
 
     def confirm_login_allowed(self, user):
-
-        print(user)
         if not user.is_active:
             raise forms.ValidationError('There was a problem with your login.')
+
 
 class ReSendConfEmailForm(forms.Form):
     email = forms.EmailField()
